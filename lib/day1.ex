@@ -4,13 +4,12 @@ defmodule Day1 do
     {:ok, content} = File.read("lib/day1.txt");
     lines = String.split(content, "\n")
 
-    list = Enum.map(lines, &split_line(&1))
+    list = Enum.map(lines, &split_line(&1)) |> Enum.map(fn [left, right] -> {left, right} end)
 
-    left_list = Enum.map(list, fn x -> String.to_integer(Enum.at(x, 0)) end)
-    right_list = Enum.map(list, fn x -> String.to_integer(Enum.at(x, 1)) end)
+    {left, right} = Enum.unzip(list)
 
-    left_list = Enum.sort(left_list);
-    right_list = Enum.sort(right_list);
+    left_list = Enum.sort(left);
+    right_list = Enum.sort(right);
 
     zipped = Enum.zip(left_list, right_list)
 

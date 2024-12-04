@@ -6,8 +6,8 @@ defmodule Day1 do
 
     list = Enum.map(lines, &split_line(&1))
 
-    left_list = Enum.map(list, fn x -> Enum.at(x, 0) end)
-    right_list = Enum.map(list, fn x -> Enum.at(x, 1) end)
+    left_list = Enum.map(list, fn x -> String.to_integer(Enum.at(x, 0)) end)
+    right_list = Enum.map(list, fn x -> String.to_integer(Enum.at(x, 1)) end)
 
     left_list = Enum.sort(left_list);
     right_list = Enum.sort(right_list);
@@ -22,7 +22,7 @@ defmodule Day1 do
   end
 
   def get_distante(left, right) do
-    abs(String.to_integer(left) - String.to_integer(right))
+    abs(left - right)
   end
 
 

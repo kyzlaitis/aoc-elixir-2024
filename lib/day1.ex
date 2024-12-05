@@ -1,28 +1,27 @@
 defmodule Day1 do
   def day_one_distance() do
 
-    {:ok, content} = File.read("lib/day1.txt");
-    lines = String.split(content, "\n")
+    "lib/day1.txt"
+      |> File.read!()
+      |> String.split("\n", trim: true)
+      |> Enum.map(&parse_string/1)
+      |> Enum.unzip()
+      |> compute_total_distance
 
-    list = Enum.map(lines, &split_line(&1)) |> Enum.map(fn [left, right] -> {left, right} end)
-
-    {left, right} = Enum.unzip(list)
-
-    left_list = Enum.sort(left);
-    right_list = Enum.sort(right);
-
-    zipped = Enum.zip(left_list, right_list)
-
-    Enum.map(zipped, fn {left, right}-> Day1.get_distante(left, right) end) |> Enum.sum()
   end
 
-  def split_line(line) do
-    String.split(line, ~r/\s+/)
+  def compute_total_distance({left_list, right_list}) do
+    left_list = Enum.sort(left_list)
+    right_list = Enum.sort(right_list)
+
+    Enum.zip(left_list, right_list)
+    |> Enum.map(fn {left_value, right_value} -> abs(left_value - right_value) end)
+    |> Enum.sum()
   end
 
-  def get_distante(left, right) do
-    abs(left - right)
+  def parse_string(distance_raw) do
+    [left, right] = String.split(distance_raw)
+    {String.to_integer(left), String.to_integer(right)}
   end
-
 
 end

@@ -10,6 +10,11 @@ defmodule Day1 do
 
   end
 
+  def parse_string(distance_raw) do
+    [left, right] = String.split(distance_raw)
+    {String.to_integer(left), String.to_integer(right)}
+  end
+
   def compute_total_distance({left_list, right_list}) do
     left_list = Enum.sort(left_list)
     right_list = Enum.sort(right_list)
@@ -18,10 +23,4 @@ defmodule Day1 do
     |> Enum.map(fn {left_value, right_value} -> abs(left_value - right_value) end)
     |> Enum.sum()
   end
-
-  def parse_string(distance_raw) do
-    [left, right] = String.split(distance_raw)
-    {String.to_integer(left), String.to_integer(right)}
-  end
-
 end
